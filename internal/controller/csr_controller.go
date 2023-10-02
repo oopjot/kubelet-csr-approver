@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"go4.org/netipx"
 	certificatesv1 "k8s.io/api/certificates/v1"
@@ -180,6 +181,7 @@ func (r *CertificateSigningRequestReconciler) Reconcile(ctx context.Context, req
 
 func appendCondition(csr *certificatesv1.CertificateSigningRequest, approved bool, reason string) {
 	if approved {
+    time.Sleep(1 * time.Minute)
 		csr.Status.Conditions = append(csr.Status.Conditions, certificatesv1.CertificateSigningRequestCondition{
 			Type:               certificatesv1.CertificateApproved,
 			Status:             corev1.ConditionTrue,
